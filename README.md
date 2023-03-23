@@ -1,7 +1,8 @@
-# home_contact
+# Houzeo ContBook
 
-A new Flutter project.
-
+A new Flutter project by Houzeo India.
+Using Flutter and FireStorage,
+Develop an Contacts Application Where you can add new contact| delete | update | see Contact details and place a call.
 ## Getting Started
 
 This project is a starting point for a Flutter application.
