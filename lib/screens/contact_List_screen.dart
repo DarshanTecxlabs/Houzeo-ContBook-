@@ -46,6 +46,12 @@ class _ContactListState extends State<ContactList> {
   }
 
   @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -142,7 +148,7 @@ class _ContactListState extends State<ContactList> {
       builder: (BuildContext context) => CupertinoAlertDialog(
             title: const Text('No Connection'),
             content: const Text('Please check your internet connectivity'),
-            actions: <Widget>[
+            actions: [
               TextButton(
                 onPressed: () async {
                   Navigator.pop(context, 'Cancel');
