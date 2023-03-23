@@ -105,7 +105,9 @@ class _ContactListState extends State<ContactList> {
                       style: const TextStyle(color: Colors.black),
                     ),
                     subtitle: Text(
-                      '+91-${value.contectList[index].mobile}',
+                      value.contectList[index].mobile != ""
+                          ? '+91-${value.contectList[index].mobile}'
+                          : "",
                       style: const TextStyle(color: Colors.blueGrey),
                     ),
                     trailing: Row(
@@ -207,7 +209,7 @@ class _ContactListState extends State<ContactList> {
                 children: [
                   Positioned.fill(
                     child: SingleChildScrollView(
-                      physics: ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       controller: scrollController,
                       child: Column(
                         children: [

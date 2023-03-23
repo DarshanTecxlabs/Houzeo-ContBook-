@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const ContactList(),
-        //  const MyHomePage(title: 'Contacts'),
       ),
     );
   }
