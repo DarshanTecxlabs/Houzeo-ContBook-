@@ -46,6 +46,10 @@ class ContectProvider with ChangeNotifier {
       //update contect from firebase
       await firestore.collection('users').doc(thisContect.id).update({
         "firstName": thisContect.firstName,
+        "lastName": thisContect.lastName,
+        "mobile": thisContect.mobile,
+        "email": thisContect.email,
+        "location": thisContect.location
       });
       contectList[index] = thisContect;
     }
