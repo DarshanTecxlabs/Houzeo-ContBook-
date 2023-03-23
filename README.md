@@ -15,6 +15,7 @@ Key points covered:
      >>>> Delete a selected contact.
      >>>>> View the selected contact’s profile by clicking on it.
      >>>>>> Call the selected contact.
+     >>>>>>> Internet connectivity check dialog.     
 ## See the list of added contacts.     
 ![Screenshot_2023-03-23-16-25-03-01_0fe557368632a4b07d0ab1e20502ea35](https://user-images.githubusercontent.com/106138012/227182710-08e75dc9-3e46-44e9-b4a9-e87fef3ad227.jpg)
 
@@ -27,7 +28,8 @@ Key points covered:
 ## View the selected contact’s profile
 ![Screenshot_2023-03-23-16-25-38-06_0fe557368632a4b07d0ab1e20502ea35](https://user-images.githubusercontent.com/106138012/227187076-3f0abacf-37f8-4c2d-959e-3592df252249.jpg)
 
-
+## Internet connectivity check dialog.
+![WhatsApp Image 2023-03-23 at 4 50 48 PM](https://user-images.githubusercontent.com/106138012/227188647-3c703330-5acb-4e7d-82e7-4ba44455b61c.jpeg)
 
 
 This project is a starting point for a Flutter application.
