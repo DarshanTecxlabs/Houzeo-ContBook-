@@ -11,13 +11,10 @@ class ContactSingleInfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.only(top: 6, left: 20, bottom: 6),
-      leading: Padding(
-        padding: const EdgeInsets.only(right: 1),
-        child: Icon(
-          singleIcon,
-          size: 28,
-          color: Colors.blue,
-        ),
+      leading: Icon(
+        singleIcon,
+        size: 28,
+        color: Colors.blue,
       ),
       title: Container(
         margin: const EdgeInsets.all(3),
