@@ -62,72 +62,82 @@ class _ContactListState extends State<ContactList> {
         elevation: 0,
       ),
       body: Consumer<ContectProvider>(
-        builder: (context, value, child) => ListView.builder(
-            itemCount: value.contectList.length,
-            itemBuilder: (context, index) => ListTile(
-                  onTap: () {
-                    //go to details screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SingleContactPage(
-                          contact: value.contectList[index],
+        builder: (context, value, child) => RefreshIndicator(
+          onRefresh: () async {
+            ContectProvider contectProvider =
+                Provider.of(context, listen: false);
+            contectProvider.fetchContectData();
+          },
+          child: ListView.builder(
+              itemCount: value.contectList.length,
+              itemBuilder: (context, index) => ListTile(
+                    onTap: () {
+                      //go to details screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SingleContactPage(
+                            contact: value.contectList[index],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  leading: Avatar(
-                      name:
-                          '${value.contectList[index].firstName} ${value.contectList[index].lastName}',
-                      placeholderColors: const [Colors.blue, Colors.lightBlue],
-                      loader: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(
-                                color: Colors.blue,
-                              )),
-                          child: const Icon(
-                            Icons.person,
-                            color: Colors.blue,
-                          )),
-                      shape: AvatarShape.circle(20)),
-                  title: Text(
-                    '${value.contectList[index].firstName} ${value.contectList[index].lastName}',
-                    style: const TextStyle(color: Colors.black),
-                  ),
-                  subtitle: Text(
-                    '+91-${value.contectList[index].mobile}',
-                    style: const TextStyle(color: Colors.blueGrey),
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          editWidgets(value.contectList[index]);
-                        },
-                        icon: const Icon(Icons.more_vert),
-                      ),
-                      IconButton(
-                        onPressed: () async {
-                          final Uri url = Uri(
-                            scheme: 'tel',
-                            path: value.contectList[index].mobile,
-                          );
-                          if (await canLaunchUrl(url)) {
-                            await launchUrl(url);
-                          } else {
-                            log("cant launch the uri");
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.call,
-                          color: Colors.green,
+                      );
+                    },
+                    leading: Avatar(
+                        name:
+                            '${value.contectList[index].firstName} ${value.contectList[index].lastName}',
+                        placeholderColors: const [
+                          Colors.blue,
+                          Colors.lightBlue
+                        ],
+                        loader: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                border: Border.all(
+                                  color: Colors.blue,
+                                )),
+                            child: const Icon(
+                              Icons.person,
+                              color: Colors.blue,
+                            )),
+                        shape: AvatarShape.circle(20)),
+                    title: Text(
+                      '${value.contectList[index].firstName} ${value.contectList[index].lastName}',
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                    subtitle: Text(
+                      '+91-${value.contectList[index].mobile}',
+                      style: const TextStyle(color: Colors.blueGrey),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            editWidgets(value.contectList[index]);
+                          },
+                          icon: const Icon(Icons.more_vert),
                         ),
-                      ),
-                    ],
-                  ),
-                )),
+                        IconButton(
+                          onPressed: () async {
+                            final Uri url = Uri(
+                              scheme: 'tel',
+                              path: value.contectList[index].mobile,
+                            );
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              log("cant launch the uri");
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.call,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
