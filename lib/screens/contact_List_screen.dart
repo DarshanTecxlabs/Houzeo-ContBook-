@@ -1,11 +1,15 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:avatars/avatars.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_contact/models/contect.dart';
 import 'package:home_contact/providers/contect_provider.dart';
 import 'package:home_contact/screens/add_user_screen.dart';
 import 'package:home_contact/screens/single_user_screen.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,8 +22,24 @@ class ContactList extends StatefulWidget {
 }
 
 class _ContactListState extends State<ContactList> {
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+        (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
+
   @override
   void initState() {
+    getConnectivity();
     ContectProvider contectProvider = Provider.of(context, listen: false);
     contectProvider.fetchContectData();
     super.initState();
@@ -116,6 +136,28 @@ class _ContactListState extends State<ContactList> {
       ),
     );
   }
+
+  showDialogBox() => showCupertinoDialog<String>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+            title: const Text('No Connection'),
+            content: const Text('Please check your internet connectivity'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.pop(context, 'Cancel');
+                  setState(() => isAlertSet = false);
+                  isDeviceConnected =
+                      await InternetConnectionChecker().hasConnection;
+                  if (!isDeviceConnected && isAlertSet == false) {
+                    showDialogBox();
+                    setState(() => isAlertSet = true);
+                  }
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ));
 
   editWidgets(ContactModel contectList) async {
     TextEditingController firstController =
